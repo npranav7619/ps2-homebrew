@@ -1,0 +1,97 @@
+
+ExecFTPs Information by Slicstik 2004
+
+
+- ExecFTPs is a standalone FTP-server running on PS2.
+
+- It supports access to memorycard and harddrive (not HDAdvance partitions .. yet).
+
+- This FTP-server is compatible with many FTP-clients but its recommended to
+use FlashFXP.
+
+- ExecFTPs reads information from CONFIG.DAT (located in same folder as ExecFTPs.ELF or 
+mc0:/BOOT/EXECFTPS/
+mc0:/EXECFTPS/
+mc0:/SYS-CONF/
+mc0:/SYS-CONF/IPCONFIG.DAT)
+This file contains net information.  (mode-setting is now removed..always tries with MC+HD)
+
+CONFIG.DAT requires one line looking like this:
+
+192.168.0.10 255.255.255.0 192.168.0.1
+
+(First param is PS2-ip, second is netmask, third is Gateway IP.)
+
+
+- ExecFTPs is currently tested working with following start-methods:
+	
+	+Burn disc and boot.
+		(Dont forget to update CONFIG.DAT with your settings and create the disc
+		using cdgenps2.exe and add a large dummy-file to image (like an mp3 or something)
+		(Add all files in rar to disc )).
+
+	+Execute from MC using MC-handling prog like DMS Explorer or PS2menu.
+ 	(Dont forget to update CONFIG.DAT with your settings and transfer EXECFTPS.ELF
+	and CONFIG.DAT to MC-folder)
+	
+	+It also works to run from HD using ps2menu-k or DMS3 HDDExplorer. (didnt try any other app so far..)
+
+	+Works to use ps2link(booted from disc or mc) and inlink
+
+
+- When ExecFTPs is ready to accept calls from FTP-client the PS2-screen output is
+'____FTP Server initialized on port 21...!'.
+
+
+Transfer speed
+
+- For a 500 kb file the transfer speed should be approx:
+MC: up 110 KBps / down 25 KBps 
+HD: up 550 KBps / down 25 KBps 
+
+
+
+
+Regarding FTP-client:
+
+
+- Path to access memorycard in slot 1 is /mc/0/ , and /mc/1/ for memcard in slot 2.
+
+- Path to hdd root is /hdd/0/.
+
+
+How to access harddrive-partitions:
+
+- To handle files in Common Partitions(marked with + before name in ftp-client) 
+or System partition (marked with __ before name in ftp-client) on your hd you first
+need to mount them to /pfs/0/. 
+
++MOUNT Example (with Ctrl+R in FlashFXP): 
+
+"SITE MNT /pfs/0/ hdd:+MYFS"
+
+this row mounts the common partition on hd named "MYFS" to /pfs/0/ . After this just go to
+/pfs/0/ and handle your files in that partition.
+
+
++UnMount Example: 
+
+"SITE UMNT /pfs/0/"
+
+This command unmounts the previosly mounted partition.
+
+
+Common Partition are created by tools like DMS HDDFormat-tool.
+
+
+Note: HDAdvance-partitions(games) can NOT be mounted and accessed at this time, 
+use hdl_dump for this.
+
+
+
+
+
+
+
+
+
